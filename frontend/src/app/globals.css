@@ -1,0 +1,178 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --primary: 221.2 83.2% 53.3%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 221.2 83.2% 53.3%;
+    --radius: 0.5rem;
+
+    /* Amazon brand palette */
+    --amazon-ink: 199 39% 11%;        /* #131921 */
+    --amazon-navy: 210 30% 19%;       /* #232f3e */
+    --amazon-orange: 36 100% 50%;     /* #ff9900 */
+    --amazon-gold: 37 84% 70%;        /* #febd69 */
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --primary: 217.2 91.2% 59.8%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 224.3 76.3% 48%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* ============================================================
+   Amazon-themed landing: 3D globe + ambient motion
+   ============================================================ */
+
+/* Rotate the globe sphere on its vertical axis */
+@keyframes globe-spin {
+  from {
+    transform: rotateY(0deg);
+  }
+  to {
+    transform: rotateY(360deg);
+  }
+}
+
+/* Gentle vertical bob to give the globe a floating feel */
+@keyframes globe-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-14px);
+  }
+}
+
+/* Orbiting satellite/ring rotation */
+@keyframes orbit-spin {
+  from {
+    transform: rotateZ(0deg);
+  }
+  to {
+    transform: rotateZ(360deg);
+  }
+}
+
+/* Pulsing glow behind the globe */
+@keyframes glow-pulse {
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(1.08);
+  }
+}
+
+/* Twinkling starfield */
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0.2;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.globe-scene {
+  perspective: 1200px;
+}
+
+.globe-floating {
+  animation: globe-float 6s ease-in-out infinite;
+}
+
+.globe-sphere {
+  transform-style: preserve-3d;
+  animation: globe-spin 18s linear infinite;
+}
+
+/* Each longitude ring is a flattened circle rotated around Y */
+.globe-meridian {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1px solid hsl(var(--amazon-orange) / 0.35);
+  transform-style: preserve-3d;
+}
+
+/* Latitude rings are scaled vertically and stacked */
+.globe-parallel {
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: auto;
+  border-radius: 50%;
+  border: 1px solid hsl(var(--amazon-gold) / 0.25);
+}
+
+.orbit-ring {
+  animation: orbit-spin 12s linear infinite;
+}
+
+.orbit-ring-reverse {
+  animation: orbit-spin 16s linear infinite reverse;
+}
+
+.globe-glow {
+  animation: glow-pulse 5s ease-in-out infinite;
+}
+
+.star {
+  position: absolute;
+  background: #fff;
+  border-radius: 50%;
+  animation: twinkle 3s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .globe-sphere,
+  .globe-floating,
+  .orbit-ring,
+  .orbit-ring-reverse,
+  .globe-glow,
+  .star {
+    animation: none !important;
+  }
+}

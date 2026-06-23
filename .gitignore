@@ -1,0 +1,38 @@
+# Dependencies and build output
+node_modules/
+frontend/node_modules/
+backend/node_modules/
+
+.next/
+frontend/.next/
+dist/
+build/
+out/
+frontend/out/
+
+# Python caches and test artifacts
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Local environments and secrets
+.env
+.env.*
+!.env.example
+!.env.local.example
+frontend/.env.local
+
+# Local tooling and editor state
+.vscode/
+.kiro/
+venv/
+.venv/
+backend/venv/
+backend/.venv/
+
+# Misc local files
+*.log
+pip_err.txt
+pip_out.txt
+test-timetable.jpg
+*.zip
