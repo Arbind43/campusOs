@@ -1,8 +1,8 @@
 import axios, { AxiosError, type AxiosInstance } from "axios";
 import { useAuthStore } from "@/store/auth";
 
-const BASE_URL =
-  process.env.NEXT_PUBLIC_API_URL ?? "https://campusos-ifab.onrender.com/api/v1";
+// API base URL — hardcoded for production deployment on Render
+const BASE_URL = "https://campusos-ifab.onrender.com/api/v1";
 
 export const apiClient: AxiosInstance = axios.create({
   baseURL: BASE_URL,
